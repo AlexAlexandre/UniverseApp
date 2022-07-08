@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { Carousel, Pagination } from 'react-native-snap-carousel';
 import { Button } from '@rneui/base';
+import { useFirstAccess } from '../../context/firstAccess.context';
 
 import CarouselCardItem from './CarouselCardItem';
 import mockData from './mockData';
@@ -11,6 +12,7 @@ import { colors } from '../../theme';
 const Onboarding = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const isCarousel = useRef(null);
+  const { setFirstAccess } = useFirstAccess();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -47,6 +49,11 @@ const Onboarding = () => {
             containerStyle={styles.button}
             titleStyle={{
               color: colors.background,
+            }}
+            onPress={() => {
+              if (setFirstAccess) {
+                setFirstAccess(false);
+              }
             }}
           />
         ) : null}
