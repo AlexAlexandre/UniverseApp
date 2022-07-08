@@ -1,20 +1,20 @@
 import React, { useRef, useState } from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import { Carousel, Pagination } from 'react-native-snap-carousel';
+import { Button } from '@rneui/base';
 
 import CarouselCardItem from './CarouselCardItem';
 import mockData from './mockData';
 import { ITEM_WIDTH, SLIDER_WIDTH, styles } from './style';
+import { colors } from '../../theme';
 
 const Onboarding = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const isCarousel = useRef(null);
 
-  console.log('carouselIndex: ', carouselIndex);
-
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.carousel}>
         <Carousel
           layout='stack'
           layoutCardOffset={400}
@@ -37,9 +37,20 @@ const Onboarding = () => {
           inactiveDotScale={0.6}
           tappableDots={true}
         />
-      </View>
 
-      <Text>adadasd</Text>
+        {carouselIndex === 2 ? (
+          <Button
+            title='Let`s  Go'
+            size='lg'
+            radius='xl'
+            color={colors.white}
+            containerStyle={styles.button}
+            titleStyle={{
+              color: colors.background,
+            }}
+          />
+        ) : null}
+      </View>
     </SafeAreaView>
   );
 };
