@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { Carousel, Pagination } from 'react-native-snap-carousel';
 import { Button } from '@rneui/base';
-import { useFirstAccess } from '../../context/firstAccess.context';
+import { useFirstAccess } from '../../contexts/firstAccess.context';
 
 import CarouselCardItem from './CarouselCardItem';
 import mockData from './mockData';
