@@ -13,6 +13,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 const Home = () => {
   const [universes, setUniverses] = useState<IUniverse[]>([]);
+  const [universeFiltered, setUniverseFiltered] = useState<string>('All');
   const [fighters, setFighters] = useState<IFighter[]>([]);
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
@@ -29,23 +30,39 @@ const Home = () => {
 
   useEffect(() => {
     universesResponse();
-    fightersResponse();
+    fightersResponse('');
   }, []);
 
   const universesResponse = async () => {
     const response = await getUniverses();
+    response.unshift({ name: 'All', description: '', objectID: '0' });
     setUniverses(response);
   };
 
-  const fightersResponse = async () => {
-    const response = await getFighters();
+  const fightersResponse = async (universe: string) => {
+    const response = await getFighters(universe);
     setFighters(response);
+  };
+
+  const filterUniverses = async (name: string) => {
+    if (name !== 'All') {
+      setUniverseFiltered(name);
+      await fightersResponse(`universe=${name}`);
+      return;
+    }
+    setUniverseFiltered('All');
+    await fightersResponse('');
   };
 
   const RenderItem = ({ item }: { item: IUniverse }) => {
     return (
       <View>
-        <Button title={item.name} containerStyle={styles.button} />
+        <Button
+          title={item.name}
+          containerStyle={styles.button}
+          color={universeFiltered === item.name ? colors.darkBlue : colors.background}
+          onPress={() => filterUniverses(item.name)}
+        />
       </View>
     );
   };
