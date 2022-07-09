@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { FlatList, Image, SafeAreaView, Text, View } from 'react-native';
+import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './style';
 import { colors, textStyles } from '../../theme';
 import { Button, Divider } from '@rneui/base';
@@ -8,11 +8,13 @@ import { IFighter, IUniverse } from '../../interfaces';
 import { useNavigation } from '@react-navigation/native';
 import CustomIcon from '../../components/Icon';
 import { getFighters } from '../../services/fighters.service';
+import { propsNavigationStack } from '../../routes/types';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Home = () => {
   const [universes, setUniverses] = useState<IUniverse[]>([]);
   const [fighters, setFighters] = useState<IFighter[]>([]);
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,7 +48,7 @@ const Home = () => {
 
   const RenderFighters = ({ item }: { item: IFighter }) => {
     return (
-      <View style={styles.fightersContainer}>
+      <TouchableOpacity style={styles.fightersContainer} onPress={() => navigation.navigate('Detail', { ...item })}>
         <View style={{ flexDirection: 'row' }}>
           <Image source={{ uri: item.imageURL, cache: 'only-if-cached' }} style={styles.fightersImage} />
 
@@ -61,7 +63,7 @@ const Home = () => {
           <Text>Rate: {item.price}</Text>
           <Text>Downloads: {item.price}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
