@@ -83,7 +83,10 @@ const Home = () => {
       <View>
         <FlatList
           data={fighters}
-          keyExtractor={item => item.objectID}
+          // Warning: the right thing is use the keyExtractor comment
+          // but we have some duplicate values, which cause a lot of problems
+          // keyExtractor={item => item.objectID}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={RenderFighters}
           ItemSeparatorComponent={() => <Divider />}
         />
