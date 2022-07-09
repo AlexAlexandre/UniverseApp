@@ -19,7 +19,11 @@ const Home = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: '',
-      headerRight: () => <CustomIcon name='filter-list' size={30} color={colors.background} />,
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('Filter')} style={styles.iconHeader}>
+          <CustomIcon name='filter-list' size={30} color={colors.background} />
+        </TouchableOpacity>
+      ),
     });
   }, [navigation]);
 

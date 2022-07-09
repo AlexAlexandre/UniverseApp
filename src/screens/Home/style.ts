@@ -9,6 +9,9 @@ export const styles = StyleSheet.create({
   header: {
     backgroundColor: colors.white,
   },
+  iconHeader: {
+    marginRight: 10,
+  },
   button: {
     margin: 10,
   },
