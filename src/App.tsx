@@ -7,8 +7,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Routes from './routes';
+
 import { FirstAccessProvider } from './contexts/firstAccess.context';
+import { FilterProvider } from './contexts/filters.context';
+
 Icon.loadFont();
+
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
@@ -18,7 +22,9 @@ const App = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <FirstAccessProvider>
-          <Routes />
+          <FilterProvider>
+            <Routes />
+          </FilterProvider>
         </FirstAccessProvider>
       </NavigationContainer>
     </SafeAreaProvider>

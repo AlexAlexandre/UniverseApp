@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -6,13 +6,21 @@ import { propsNavigationStack } from '../../routes/types';
 import { colors, textStyles } from '../../theme';
 import { AirbnbRating, Button, CheckBox, Divider } from '@rneui/base';
 import { styles } from './style';
+import { useFilter } from '../../contexts/filters.context';
 
 const Filter = () => {
-  const [nameCheck, setNameCheck] = useState(false);
-  const [priceCheck, setPriceCheck] = useState(false);
-  const [rateCheck, setRateCheck] = useState(false);
-  const [downloadCheck, setDownloadCheck] = useState(false);
-  const [rating, setRating] = useState(0);
+  const {
+    nameCheck,
+    priceCheck,
+    rateCheck,
+    downloadCheck,
+    rating,
+    setNameCheck,
+    setPriceCheck,
+    setRateCheck,
+    setDownloadCheck,
+    setRating,
+  } = useFilter();
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
@@ -21,6 +29,25 @@ const Filter = () => {
       headerTitle: () => <Text style={[textStyles.h1, textStyles.bold]}>Filters</Text>,
     });
   }, [navigation]);
+
+  const resetFilters = () => {
+    setNameCheck(false);
+    setPriceCheck(false);
+    setRateCheck(false);
+    setDownloadCheck(false);
+    setRating(0);
+  };
+
+  const setFilter = () => {
+    let sortBy = 'sortBy=';
+    if (nameCheck) {
+      sortBy += 'name';
+    }
+
+    return sortBy;
+  };
+
+  console.log(setFilter());
 
   return (
     <View>
@@ -90,7 +117,14 @@ const Filter = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button title='Reset' size='lg' color={colors.disabled} radius={15} style={styles.buttonSize} />
+        <Button
+          title='Reset'
+          size='lg'
+          radius={15}
+          color={colors.disabled}
+          style={styles.buttonSize}
+          onPress={() => resetFilters()}
+        />
         <Button title='Apply' size='lg' radius={15} style={styles.buttonSize} />
       </View>
     </View>
