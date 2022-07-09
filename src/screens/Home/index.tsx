@@ -10,6 +10,7 @@ import CustomIcon from '../../components/Icon';
 import { getFighters } from '../../services/fighters.service';
 import { propsNavigationStack } from '../../routes/types';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { isIOS } from '../../helpers/deviceInfo';
 
 const Home = () => {
   const [universes, setUniverses] = useState<IUniverse[]>([]);
@@ -19,10 +20,16 @@ const Home = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: '',
+      headerTitle: !isIOS() ? 'Fighters' : '',
+      headerBackground: () => {
+        if (isIOS()) {
+          return <View style={{ flex: 1, backgroundColor: colors.white }} />;
+        }
+        return <View style={{ flex: 1, backgroundColor: colors.background }} />;
+      },
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('Filter')} style={styles.iconHeader}>
-          <CustomIcon name='filter-list' size={30} color={colors.background} />
+          <CustomIcon name='filter-list' size={30} color={isIOS() ? colors.background : colors.white} />
         </TouchableOpacity>
       ),
     });
@@ -91,7 +98,7 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={[textStyles.h1, textStyles.bold, styles.fightersTitle]}>Fighters</Text>
+        {isIOS() ? <Text style={[textStyles.h1, textStyles.bold, styles.fightersTitle]}>Fighters</Text> : null}
         <Divider />
 
         <FlatList data={universes} renderItem={RenderItem} horizontal showsHorizontalScrollIndicator={false} />

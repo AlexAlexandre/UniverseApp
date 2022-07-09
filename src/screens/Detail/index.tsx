@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Platform, Text, View } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AirbnbRating } from '@rneui/base';
@@ -13,9 +13,18 @@ const Detail = () => {
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
+    if (Platform.OS === 'ios') {
+      navigation.setOptions({
+        headerBackTitleVisible: false,
+        headerTintColor: colors.background,
+        headerTitleAlign: 'left',
+        headerTitle: () => <Text style={[textStyles.h1, textStyles.bold]}>{params.name}</Text>,
+        headerBackground: () => <View style={{ flex: 1, backgroundColor: colors.white }} />,
+      });
+      return;
+    }
     navigation.setOptions({
-      headerBackTitleVisible: false,
-      headerTitle: () => <Text style={[textStyles.h1, textStyles.bold]}>{params.name}</Text>,
+      headerTitle: () => <Text style={[textStyles.h3, { color: colors.white }]}>{params.name}</Text>,
     });
   }, [navigation, params.name]);
 

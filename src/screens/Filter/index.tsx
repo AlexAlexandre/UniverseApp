@@ -7,6 +7,7 @@ import { colors, textStyles } from '../../theme';
 import { AirbnbRating, Button, CheckBox, Divider } from '@rneui/base';
 import { styles } from './style';
 import { useFilter } from '../../contexts/filters.context';
+import { isIOS } from '../../helpers/deviceInfo';
 
 const Filter = () => {
   const {
@@ -24,10 +25,15 @@ const Filter = () => {
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerBackTitleVisible: false,
-      headerTitle: () => <Text style={[textStyles.h1, textStyles.bold]}>Filters</Text>,
-    });
+    if (isIOS()) {
+      navigation.setOptions({
+        headerBackTitleVisible: false,
+        headerTintColor: colors.background,
+        headerTitleAlign: 'left',
+        headerBackground: () => <View style={{ flex: 1, backgroundColor: colors.white }} />,
+        headerTitle: () => <Text style={[textStyles.h1, textStyles.bold]}>Filters</Text>,
+      });
+    }
   }, [navigation]);
 
   const resetFilters = () => {

@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 280,
+    marginTop: 200,
   },
   buttonSize: {
     width: 150,
