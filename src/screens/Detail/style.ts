@@ -11,22 +11,24 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  price: {
-    width: 70,
-    height: 38,
-    borderRadius: 10,
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fightersContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 10,
+  fighterInfo: {
+    marginTop: 20,
   },
   fighterImage: {
     width: 200,
     height: 200,
+  },
+  price: {
+    width: 70,
+    height: 38,
+    borderRadius: 10,
+    marginTop: 5,
+    backgroundColor: colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  downloadsText: {
+    marginTop: 5,
   },
   descriptionText: {
     lineHeight: 30,

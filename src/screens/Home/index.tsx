@@ -49,8 +49,8 @@ const Home = () => {
   const RenderFighters = ({ item }: { item: IFighter }) => {
     return (
       <TouchableOpacity style={styles.fightersContainer} onPress={() => navigation.navigate('Detail', { ...item })}>
-        <View style={{ flexDirection: 'row' }}>
-          <Image source={{ uri: item.imageURL, cache: 'only-if-cached' }} style={styles.fightersImage} />
+        <View style={styles.fightersDetail}>
+          <Image source={{ uri: item.imageURL }} style={styles.fightersImage} />
 
           <View>
             <Text style={[textStyles.title, textStyles.bold]}>{item.name}</Text>
@@ -58,7 +58,7 @@ const Home = () => {
           </View>
         </View>
 
-        <View style={{ alignItems: 'flex-end' }}>
+        <View style={styles.fightersInfo}>
           <Text>Price: ${item.price}</Text>
           <Text>Rate: {item.price}</Text>
           <Text>Downloads: {item.price}</Text>
@@ -70,7 +70,7 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={[textStyles.h1, textStyles.bold, { marginLeft: 15 }]}>Fighters</Text>
+        <Text style={[textStyles.h1, textStyles.bold, styles.fightersTitle]}>Fighters</Text>
         <Divider />
 
         <FlatList data={universes} renderItem={RenderItem} horizontal showsHorizontalScrollIndicator={false} />

@@ -16,6 +16,17 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 10,
+    alignItems: 'center',
+  },
+  fightersTitle: {
+    marginLeft: 15,
+  },
+  fightersDetail: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  fightersInfo: {
+    alignItems: 'flex-end',
   },
   fightersImage: {
     width: 100,
