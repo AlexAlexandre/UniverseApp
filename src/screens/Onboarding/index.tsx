@@ -8,6 +8,7 @@ import CarouselCardItem from './CarouselCardItem';
 import mockData from './mockData';
 import { ITEM_WIDTH, SLIDER_WIDTH, styles } from './style';
 import { colors } from '../../theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Onboarding = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -50,8 +51,9 @@ const Onboarding = () => {
             titleStyle={{
               color: colors.background,
             }}
-            onPress={() => {
+            onPress={async () => {
               if (setFirstAccess) {
+                await AsyncStorage.setItem('@RNUniverse:firstAccess', JSON.stringify(false));
                 setFirstAccess(false);
               }
             }}
