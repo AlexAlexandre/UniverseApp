@@ -20,13 +20,6 @@ const Home = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: !isIOS ? 'Fighters' : '',
-      headerBackground: () => {
-        if (isIOS) {
-          return <View style={{ flex: 1, backgroundColor: colors.white }} />;
-        }
-        return <View style={{ flex: 1, backgroundColor: colors.background }} />;
-      },
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('Filter')} style={styles.iconHeader}>
           <CustomIcon name='filter-list' size={30} color={isIOS ? colors.background : colors.white} />

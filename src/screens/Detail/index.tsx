@@ -16,11 +16,7 @@ const Detail = () => {
   useLayoutEffect(() => {
     if (isIOS) {
       navigation.setOptions({
-        headerBackTitleVisible: false,
-        headerTintColor: colors.background,
-        headerTitleAlign: 'left',
         headerTitle: () => <Text style={[textStyles.h1, textStyles.bold]}>{params.name}</Text>,
-        headerBackground: () => <View style={{ flex: 1, backgroundColor: colors.white }} />,
       });
       return;
     }
