@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -12,6 +12,7 @@ import RadioButton from '../../components/RadioButton';
 import checkBoxData from './checkBoxData';
 
 const Filter = () => {
+  const [checkBox, setCheckBox] = useState('name');
   const { sortBy, setSortBy, rating, setRating } = useFilter();
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
@@ -29,6 +30,7 @@ const Filter = () => {
   };
 
   console.log('sortBy: ', sortBy);
+  console.log('checkBox: ', checkBox);
 
   return (
     <View>
@@ -37,7 +39,7 @@ const Filter = () => {
           <Text style={[textStyles.body, textStyles.bold, { color: colors.disabled }]}>SORT BY</Text>
         </View>
         <View style={styles.checkBoxContainer}>
-          <RadioButton data={checkBoxData} onSelect={value => setSortBy(value)} />
+          <RadioButton data={checkBoxData} onSelect={value => setCheckBox(value)} />
         </View>
       </View>
 
@@ -58,7 +60,16 @@ const Filter = () => {
           style={styles.buttonSize}
           onPress={() => resetFilters()}
         />
-        <Button title='Apply' size='lg' radius={15} style={styles.buttonSize} />
+        <Button
+          title='Apply'
+          size='lg'
+          radius={15}
+          style={styles.buttonSize}
+          onPress={() => {
+            setSortBy(checkBox);
+            navigation.goBack();
+          }}
+        />
       </View>
     </View>
   );

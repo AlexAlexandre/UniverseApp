@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './style';
 import { colors, textStyles } from '../../theme';
@@ -11,12 +11,14 @@ import { getFighters } from '../../services/fighters.service';
 import { propsNavigationStack } from '../../routes/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { isIOS } from '../../helpers/deviceInfo';
+import { useFilter } from '../../contexts/filters.context';
 
 const Home = () => {
   const [universes, setUniverses] = useState<IUniverse[]>([]);
   const [universeFiltered, setUniverseFiltered] = useState<string>('All');
   const [fighters, setFighters] = useState<IFighter[]>([]);
   const [loading, setLoading] = useState(false);
+  const { sortBy } = useFilter();
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
@@ -29,22 +31,25 @@ const Home = () => {
     });
   }, [navigation]);
 
+  const fightersResponse = useCallback(
+    async (universe: string) => {
+      setLoading(true);
+      const response = await getFighters(universe, sortBy);
+      setFighters(response);
+      setLoading(false);
+    },
+    [sortBy],
+  );
+
   useEffect(() => {
     universesResponse();
     fightersResponse('');
-  }, []);
+  }, [fightersResponse]);
 
   const universesResponse = async () => {
     const response = await getUniverses();
     response.unshift({ name: 'All', description: '', objectID: '0' });
     setUniverses(response);
-  };
-
-  const fightersResponse = async (universe: string) => {
-    setLoading(true);
-    const response = await getFighters(universe);
-    setFighters(response);
-    setLoading(false);
   };
 
   const onRefreshFighters = async () => {
