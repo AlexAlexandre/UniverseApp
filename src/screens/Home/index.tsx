@@ -20,16 +20,16 @@ const Home = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: !isIOS() ? 'Fighters' : '',
+      headerTitle: !isIOS ? 'Fighters' : '',
       headerBackground: () => {
-        if (isIOS()) {
+        if (isIOS) {
           return <View style={{ flex: 1, backgroundColor: colors.white }} />;
         }
         return <View style={{ flex: 1, backgroundColor: colors.background }} />;
       },
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('Filter')} style={styles.iconHeader}>
-          <CustomIcon name='filter-list' size={30} color={isIOS() ? colors.background : colors.white} />
+          <CustomIcon name='filter-list' size={30} color={isIOS ? colors.background : colors.white} />
         </TouchableOpacity>
       ),
     });
@@ -98,7 +98,7 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        {isIOS() ? <Text style={[textStyles.h1, textStyles.bold, styles.fightersTitle]}>Fighters</Text> : null}
+        {isIOS ? <Text style={[textStyles.h1, textStyles.bold, styles.fightersTitle]}>Fighters</Text> : null}
         <Divider />
 
         <FlatList data={universes} renderItem={RenderItem} horizontal showsHorizontalScrollIndicator={false} />

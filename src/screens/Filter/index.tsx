@@ -25,7 +25,7 @@ const Filter = () => {
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
-    if (isIOS()) {
+    if (isIOS) {
       navigation.setOptions({
         headerBackTitleVisible: false,
         headerTintColor: colors.background,

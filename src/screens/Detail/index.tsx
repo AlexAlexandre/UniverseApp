@@ -1,11 +1,12 @@
 import React, { useLayoutEffect } from 'react';
-import { Image, Platform, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AirbnbRating } from '@rneui/base';
 
 import { propsNavigationStack } from '../../routes/types';
 import { colors, textStyles } from '../../theme';
+import { isIOS } from '../../helpers/deviceInfo';
 import { styles } from './style';
 
 const Detail = () => {
@@ -13,7 +14,7 @@ const Detail = () => {
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
-    if (Platform.OS === 'ios') {
+    if (isIOS) {
       navigation.setOptions({
         headerBackTitleVisible: false,
         headerTintColor: colors.background,
