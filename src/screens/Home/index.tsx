@@ -16,6 +16,7 @@ const Home = () => {
   const [universes, setUniverses] = useState<IUniverse[]>([]);
   const [universeFiltered, setUniverseFiltered] = useState<string>('All');
   const [fighters, setFighters] = useState<IFighter[]>([]);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
@@ -40,8 +41,14 @@ const Home = () => {
   };
 
   const fightersResponse = async (universe: string) => {
+    setLoading(true);
     const response = await getFighters(universe);
     setFighters(response);
+    setLoading(false);
+  };
+
+  const onRefreshFighters = async () => {
+    await filterUniverses('All');
   };
 
   const filterUniverses = async (name: string) => {
@@ -106,6 +113,8 @@ const Home = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={RenderFighters}
           ItemSeparatorComponent={() => <Divider />}
+          refreshing={loading}
+          onRefresh={onRefreshFighters}
         />
       </View>
     </SafeAreaView>
