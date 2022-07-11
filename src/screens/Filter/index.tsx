@@ -4,24 +4,15 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { propsNavigationStack } from '../../routes/types';
 import { colors, textStyles } from '../../theme';
-import { AirbnbRating, Button, CheckBox, Divider } from '@rneui/base';
+import { AirbnbRating, Button } from '@rneui/base';
 import { styles } from './style';
 import { useFilter } from '../../contexts/filters.context';
 import { isIOS } from '../../helpers/deviceInfo';
+import RadioButton from '../../components/RadioButton';
+import checkBoxData from './checkBoxData';
 
 const Filter = () => {
-  const {
-    nameCheck,
-    priceCheck,
-    rateCheck,
-    downloadCheck,
-    rating,
-    setNameCheck,
-    setPriceCheck,
-    setRateCheck,
-    setDownloadCheck,
-    setRating,
-  } = useFilter();
+  const { sortBy, setSortBy, rating, setRating } = useFilter();
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
@@ -33,23 +24,11 @@ const Filter = () => {
   }, [navigation]);
 
   const resetFilters = () => {
-    setNameCheck(false);
-    setPriceCheck(false);
-    setRateCheck(false);
-    setDownloadCheck(false);
+    setSortBy('');
     setRating(0);
   };
 
-  const setFilter = () => {
-    let sortBy = 'sortBy=';
-    if (nameCheck) {
-      sortBy += 'name';
-    }
-
-    return sortBy;
-  };
-
-  console.log(setFilter());
+  console.log('sortBy: ', sortBy);
 
   return (
     <View>
@@ -58,55 +37,7 @@ const Filter = () => {
           <Text style={[textStyles.body, textStyles.bold, { color: colors.disabled }]}>SORT BY</Text>
         </View>
         <View style={styles.checkBoxContainer}>
-          <CheckBox
-            title='Name'
-            checked={nameCheck}
-            iconRight
-            iconType='material-community'
-            uncheckedIcon='checkbox-blank-circle-outline'
-            checkedIcon='checkbox-marked-circle-outline'
-            wrapperStyle={styles.checkBoxDirection}
-            onPress={() => setNameCheck(!nameCheck)}
-          />
-
-          <Divider inset={true} />
-
-          <CheckBox
-            title='Price'
-            checked={priceCheck}
-            iconRight
-            iconType='material-community'
-            uncheckedIcon='checkbox-blank-circle-outline'
-            checkedIcon='checkbox-marked-circle-outline'
-            wrapperStyle={styles.checkBoxDirection}
-            onPress={() => setPriceCheck(!priceCheck)}
-          />
-
-          <Divider inset={true} />
-
-          <CheckBox
-            title='Rate'
-            checked={rateCheck}
-            iconRight
-            iconType='material-community'
-            uncheckedIcon='checkbox-blank-circle-outline'
-            checkedIcon='checkbox-marked-circle-outline'
-            wrapperStyle={styles.checkBoxDirection}
-            onPress={() => setRateCheck(!rateCheck)}
-          />
-
-          <Divider inset={true} />
-
-          <CheckBox
-            title='Downloads'
-            checked={downloadCheck}
-            iconRight
-            iconType='material-community'
-            uncheckedIcon='checkbox-blank-circle-outline'
-            checkedIcon='checkbox-marked-circle-outline'
-            wrapperStyle={styles.checkBoxDirection}
-            onPress={() => setDownloadCheck(!downloadCheck)}
-          />
+          <RadioButton data={checkBoxData} onSelect={value => setSortBy(value)} />
         </View>
       </View>
 

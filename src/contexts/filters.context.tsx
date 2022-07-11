@@ -1,52 +1,31 @@
 import React, { createContext, Dispatch, ReactElement, useContext, useState } from 'react';
 
 interface IFiltersContext {
-  nameCheck: boolean;
-  setNameCheck: Dispatch<React.SetStateAction<boolean>>;
-  priceCheck: boolean;
-  setPriceCheck: Dispatch<React.SetStateAction<boolean>>;
-  rateCheck: boolean;
-  setRateCheck: Dispatch<React.SetStateAction<boolean>>;
-  downloadCheck: boolean;
-  setDownloadCheck: Dispatch<React.SetStateAction<boolean>>;
+  sortBy: string;
   rating: number;
+  setSortBy: Dispatch<React.SetStateAction<string>>;
   setRating: Dispatch<React.SetStateAction<number>>;
 }
 
 type TChildren = { children: ReactElement };
 
 const FiltersContext = createContext<IFiltersContext>({
-  nameCheck: false,
-  setNameCheck: () => {},
-  priceCheck: false,
-  setPriceCheck: () => {},
-  rateCheck: false,
-  setRateCheck: () => {},
-  downloadCheck: false,
-  setDownloadCheck: () => {},
+  sortBy: '',
   rating: 0,
+  setSortBy: () => {},
   setRating: () => {},
 });
 
 export const FilterProvider = ({ children }: TChildren) => {
-  const [nameCheck, setNameCheck] = useState(false);
-  const [priceCheck, setPriceCheck] = useState(false);
-  const [rateCheck, setRateCheck] = useState(false);
-  const [downloadCheck, setDownloadCheck] = useState(false);
+  const [sortBy, setSortBy] = useState('');
   const [rating, setRating] = useState(0);
 
   return (
     <FiltersContext.Provider
       value={{
-        nameCheck,
-        priceCheck,
-        rateCheck,
-        downloadCheck,
+        sortBy,
         rating,
-        setNameCheck,
-        setPriceCheck,
-        setRateCheck,
-        setDownloadCheck,
+        setSortBy,
         setRating,
       }}>
       {children}
