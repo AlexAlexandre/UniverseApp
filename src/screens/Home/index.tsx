@@ -15,10 +15,9 @@ import { useFilter } from '../../contexts/filters.context';
 
 const Home = () => {
   const [universes, setUniverses] = useState<IUniverse[]>([]);
-  const [universeFiltered, setUniverseFiltered] = useState<string>('All');
   const [fighters, setFighters] = useState<IFighter[]>([]);
   const [loading, setLoading] = useState(false);
-  const { sortBy } = useFilter();
+  const { universeFiltered, setUniverseFiltered, sortBy } = useFilter();
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
@@ -41,10 +40,14 @@ const Home = () => {
     [sortBy],
   );
 
+  const onRefreshFighters = async () => {
+    await filterUniverses('All');
+  };
+
   useEffect(() => {
     universesResponse();
-    fightersResponse('');
-  }, [fightersResponse]);
+    fightersResponse(universeFiltered);
+  }, [fightersResponse, universeFiltered]);
 
   const universesResponse = async () => {
     const response = await getUniverses();
@@ -52,21 +55,12 @@ const Home = () => {
     setUniverses(response);
   };
 
-  const onRefreshFighters = async () => {
-    await filterUniverses('All');
-  };
-
   const filterUniverses = async (name: string) => {
-    if (name !== 'All') {
-      setUniverseFiltered(name);
-      await fightersResponse(`universe=${name}`);
-      return;
-    }
-    setUniverseFiltered('All');
-    await fightersResponse('');
+    setUniverseFiltered(name);
+    await fightersResponse(name);
   };
 
-  const RenderItem = ({ item }: { item: IUniverse }) => {
+  const RenderUniverses = ({ item }: { item: IUniverse }) => {
     return (
       <View>
         <Button
@@ -106,7 +100,7 @@ const Home = () => {
         {isIOS ? <Text style={[textStyles.h1, textStyles.bold, styles.fightersTitle]}>Fighters</Text> : null}
         <Divider />
 
-        <FlatList data={universes} renderItem={RenderItem} horizontal showsHorizontalScrollIndicator={false} />
+        <FlatList data={universes} renderItem={RenderUniverses} horizontal showsHorizontalScrollIndicator={false} />
       </View>
 
       <View>

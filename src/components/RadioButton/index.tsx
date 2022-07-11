@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { colors, textStyles } from '../../theme';
 import { Divider, Icon } from '@rneui/base';
-import { styles } from './style';
+import { colors, textStyles } from '../../theme';
 import { ISortBy } from '../../interfaces';
+import { styles } from './style';
 
 interface IRadioButton {
   data: ISortBy[];
@@ -37,8 +37,6 @@ const RadioButton = ({ data, onSelect }: IRadioButton) => {
           </TouchableOpacity>
         );
       })}
-
-      <Text>user option: {userOption}</Text>
     </View>
   );
 };

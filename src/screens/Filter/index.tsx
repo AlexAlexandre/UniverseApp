@@ -13,7 +13,7 @@ import checkBoxData from './checkBoxData';
 
 const Filter = () => {
   const [checkBox, setCheckBox] = useState('name');
-  const { sortBy, setSortBy, rating, setRating } = useFilter();
+  const { setSortBy, rating, setRating } = useFilter();
   const navigation = useNavigation<StackNavigationProp<propsNavigationStack>>();
 
   useLayoutEffect(() => {
@@ -26,11 +26,9 @@ const Filter = () => {
 
   const resetFilters = () => {
     setSortBy('');
+    setCheckBox('');
     setRating(0);
   };
-
-  console.log('sortBy: ', sortBy);
-  console.log('checkBox: ', checkBox);
 
   return (
     <View>
