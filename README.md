@@ -17,3 +17,10 @@
 
 ### Android
 `yarn android`
+
+
+## Videos from the project
+
+| IOS | ANDROID |
+|-----|---------|
+| <img src="https://user-images.githubusercontent.com/14894380/178197369-8923eda6-7645-4e6a-8cba-52911c844fc0.mov" height="650" /> | <img src="https://user-images.githubusercontent.com/14894380/178197945-6580963f-b305-4361-8cb2-9e9bb4f1d0c7.mov" height="650" /> |
