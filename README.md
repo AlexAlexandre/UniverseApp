@@ -1,7 +1,5 @@
 # UniverseApp
 
-#### This is a repository for study proposal, to study the weather API (http://api.openweathermap.org).
-
 ## Download the project:
 `git clone https://github.com/AlexAlexandre/UniverseApp.git`
 
